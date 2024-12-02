@@ -19,7 +19,6 @@ enum Semester {
     Forth = "Четвертий"
 }
 
-// Enum для оцінок
 enum Grade {
     Excellent = 5,
     Good = 4,
@@ -69,7 +68,7 @@ class UniversityManagementSystem {
     private courses: Course[] = [];
     private grades: GradeRecord[] = [];
     private studentIdCounter = 1;
-    private courseRegistrations: Map<number, number[]> = new Map(); // Курс -> список студентів
+    private courseRegistrations: Map<number, number[]> = new Map(); 
 
     // Реєстрація студента
     enrollStudent(student: Omit<Student, "id">): Student {
@@ -94,19 +93,17 @@ class UniversityManagementSystem {
 
         const registeredStudents = this.courseRegistrations.get(courseId)!;
 
-        // Перевірка на переповненість курсу
         if (registeredStudents.length >= course.maxStudents) {
             console.log(`Курс ${course.name} вже заповнений. Студент ${studentId} не може бути зареєстрований.`);
-            return; // Якщо курс заповнений, не додаємо студента
+            return; 
         }
 
         const student = this.students.find(s => s.id === studentId);
         if (!student || student.faculty !== course.faculty) {
             console.log(`Студент ${studentId} не підходить до курсу ${course.name}.`);
-            return; // Студент не підходить, не додаємо його
+            return; 
         }
 
-        // Додаємо студента, якщо він пройшов перевірки
         registeredStudents.push(studentId); 
         console.log(`Студент ${studentId} зареєстрований на курс ${course.name}`);
     }
@@ -126,7 +123,7 @@ class UniversityManagementSystem {
         const registeredStudents = this.courseRegistrations.get(courseId) || [];
         if (!registeredStudents.includes(studentId)) {
             console.log(`Студент ${studentId} не зареєстрований на курс ${course.name}.`);
-            return; // Студент не зареєстрований, не можна виставити оцінку
+            return;
         }
 
         this.grades.push({
@@ -184,8 +181,6 @@ class UniversityManagementSystem {
         });
     }
 }
-
-
 
 // Перевірка
 const ums = new UniversityManagementSystem();
